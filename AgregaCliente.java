@@ -1,7 +1,8 @@
-import java.util.ArrayList;
+import java.util.*;
+//import java.util.ArrayList;
 import java.io.*;
-import java.util.Iterator;
-import java.util.Scanner;
+//import java.util.Iterator;
+//import java.util.Scanner;
 
 public class AgregaCliente {
     public static void main(String[]args) {
@@ -9,8 +10,8 @@ public class AgregaCliente {
 
 	    System.out.println("¿Quieres eliminar algun archivo?\n" +
 			       "1: Leer lista\n" +
-			       "2: Agregar Lista\n" +
-			       "3: ordenar alfabeticamente (prox)\n" +
+			       "2: Agregar Cliente a la Lista\n" +
+			       "3: Ordenar Alfabeticamente\n" +
 			       
 			       "presiona cualquier otro numero para salir");
 	    Scanner decidor = new Scanner(System.in);
@@ -88,6 +89,46 @@ public class AgregaCliente {
 	    
 	
 	break;
+
+	    case 3:
+	ArrayList<String> ordenable = new ArrayList<String>();
+	
+	File aOrdenar = new File("Clientes.txt");
+	if(aOrdenar.exists()) {
+	    System.out.println("Derechos reservados");
+	    System.out.println("Encontré el archivo!");
+
+	}
+
+        
+	BufferedReader lector = new BufferedReader(new FileReader("Clientes.txt"));
+	String buf;
+	while((buf = lector.readLine()) != null) {
+	    System.out.println(buf);
+	    ordenable.add(buf);
+	    System.out.println(ordenable.size());
+	}
+	lector.close();
+	System.out.println(ordenable);
+	Collections.sort(ordenable);
+	
+	FileWriter order = new FileWriter("Clientes.txt");
+	int space = ordenable.size();
+	for(int i = 0; i < space; i++){
+	    String writter = ordenable.get(i).toString();
+	    order.write(writter);
+	    if(i < space - 1)
+		order.write("\n");
+	}
+	order.close();
+	System.out.println(ordenable);
+	
+	
+	    
+	
+	break;
+
+		
 
 	    default:
 		System.out.println("Esa opcion no existe");

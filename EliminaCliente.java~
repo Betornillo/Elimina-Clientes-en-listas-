@@ -1,0 +1,112 @@
+import java.util.ArrayList;
+import java.io.*;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class eliminaCliente {
+    public static void main(String[]args) {
+	try {
+
+	    System.out.println("¿Quieres eliminar algun archivo?\n" +
+			       "1: eliminar el menu\n" +
+			       "2: eliminar un cliente\n" +
+			       "3: eliminar las ordenes\n" +
+			       "presiona cualquier otro numero para salir");
+	    Scanner decidor = new Scanner(System.in);
+	    int teclado = decidor.nextInt();
+	    switch(teclado){
+	    case 1:
+	    
+	    System.out.println("De verdad quieres borrar el menu?\n" +
+			       "1: borrar & cualquier otro numero: salir");
+	    Scanner bmenu = new Scanner(System.in);
+	    int decid = bmenu.nextInt();
+	    if(decid == 1) {
+	boolean siPaso = (new File("Menu_ddmmaaaa.txt")).delete();
+	if(siPaso)
+	    System.out.println("Se borro y creo correctamente el Menu");
+	    } else
+		System.out.println("No se pudo borrar el menu");
+	BufferedWriter menu = new BufferedWriter(new FileWriter("Menu_ddmmaaaa.txt"));
+	menu.write("Tacos Campechanos");
+	menu.write(System.lineSeparator());
+	menu.write("Tacos de Cabeza");
+	menu.write(System.lineSeparator());
+	menu.write("Tacos de chorizo");
+	menu.write(System.lineSeparator());
+	menu.write("Tacos de bisteck");
+	menu.close();
+	break;
+	    case 2:
+		
+	ArrayList<String> ejempli = new ArrayList<String>();
+	/*
+	ejempli.add("Clientes.txt");
+	for(int i = 0; i <= ejempli.size() - 1; i++)
+	    System.out.println(ejempli.get(i));
+
+
+	Iterator<String> it = ejempli.iterator();
+	while(it.hasNext())
+	    System.out.println(it.next());
+	ejempli.set(2,"joaquin");
+	*/
+	
+	File fileClientes = new File("Clientes.txt");
+	if(fileClientes.exists()) {
+	    System.out.println("El archivo Clientes.txt no puede ser eliminado");
+	    System.out.println("Elige el indice del cliente que quieres eliminar");
+	}
+
+        
+	BufferedReader lecturaMenu = new BufferedReader(new FileReader("Clientes.txt"));
+	String str;
+	while((str = lecturaMenu.readLine()) != null) {
+	    System.out.println(str);
+	    ejempli.add(str);
+	    System.out.println(ejempli.size());
+	}
+	lecturaMenu.close();
+	System.out.println("cual quieres borrar?");
+	Scanner input = new Scanner(System.in);
+	int borrador = input.nextInt();
+	if(borrador > ejempli.size()) {
+	    System.out.println("No hay tantos indices");
+	    return;
+	} else {
+	    
+	ejempli.remove(borrador-1);
+	
+
+	/*
+	FileWriter hope = new FileWriter("Clientes.txt");
+	for(String strr: ejempli) {
+	    hope.write(strr);
+	}
+	hope.close();
+	*/
+	FileWriter stt = new FileWriter("Clientes.txt");
+	int tam = ejempli.size();
+	for(int i = 0; i < tam; i++){
+	    String strr = ejempli.get(i).toString();
+	    stt.write(strr);
+	    if(i < tam - 1)
+		stt.write("\n");
+	}
+	stt.close();
+	System.out.println(ejempli);
+	}
+	break;
+	    case 3:
+		System.out.println("El archivo ordenes.txt no puede ser eliminado");
+		break;
+	    default:
+	break;
+	    }
+	}
+	catch(IOException ex) {
+	    System.out.println("exception ocurred\n " + ex);
+	    System.out.println("The file does not exist or you are trying to read a file that has been deleted");
+	}
+    }
+}

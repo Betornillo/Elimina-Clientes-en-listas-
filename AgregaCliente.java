@@ -1,0 +1,102 @@
+import java.util.ArrayList;
+import java.io.*;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class AgregaCliente {
+    public static void main(String[]args) {
+	try {
+
+	    System.out.println("¿Quieres eliminar algun archivo?\n" +
+			       "1: Leer lista\n" +
+			       "2: Agregar Lista\n" +
+			       "3: ordenar alfabeticamente (prox)\n" +
+			       
+			       "presiona cualquier otro numero para salir");
+	    Scanner decidor = new Scanner(System.in);
+	    int teclado = decidor.nextInt();
+	    switch(teclado){
+	    case 1:
+		
+	ArrayList<String> listaClientes = new ArrayList<String>();
+	
+	File baseDeDatos = new File("Clientes.txt");
+	if(baseDeDatos.exists()) {
+	    System.out.println("El archivo Clientes.txt no puede ser eliminado");
+	    System.out.println("Encontré el archivo!");
+
+	}
+
+        
+	BufferedReader leerLista = new BufferedReader(new FileReader("Clientes.txt"));
+	String buffer;
+	while((buffer = leerLista.readLine()) != null) {
+	    System.out.println(buffer);
+	    listaClientes.add(buffer);
+	    System.out.println(listaClientes.size());
+	}
+	leerLista.close();
+	System.out.println(listaClientes);
+	break;
+
+	    case 2:
+		
+	ArrayList<String> list = new ArrayList<String>();
+	
+	File base = new File("Clientes.txt");
+	if(base.exists()) {
+	    System.out.println("Derechos reservados");
+	    System.out.println("Encontré el archivo!");
+
+	}
+
+        
+	BufferedReader leer = new BufferedReader(new FileReader("Clientes.txt"));
+	String buff;
+	while((buff = leer.readLine()) != null) {
+	    System.out.println(buff);
+	    list.add(buff);
+	    System.out.println(list.size());
+	}
+	leer.close();
+	System.out.println(list);
+	Scanner nuevoCliente = new Scanner(System.in);
+	System.out.println("Ingresa tu nombre");
+	String name = nuevoCliente.next();
+	Scanner nuevoApp = new Scanner(System.in);
+	System.out.println("Ingresa tu 1er apellido");
+	String app = nuevoApp.next();
+	Scanner nuevoApm = new Scanner(System.in);
+	System.out.println("Ingresa tu 2do apellido");
+	String apm = nuevoApm.next();
+	String client = name + " " + app + " " + apm;
+	
+	//	String client = nuevoCliente.next();
+	list.add(client);
+	System.out.println(list);
+	
+	FileWriter agregar = new FileWriter("Clientes.txt");
+	int espacio = list.size();
+	for(int i = 0; i < espacio; i++){
+	    String escritor = list.get(i).toString();
+	    agregar.write(escritor);
+	    if(i < espacio - 1)
+		agregar.write("\n");
+	}
+	agregar.close();
+	System.out.println(list);
+	    
+	
+	break;
+
+	    default:
+		System.out.println("Esa opcion no existe");
+		
+	    }		
+   	}catch(IOException ex) {
+	    System.out.println("exception ocurred\n " + ex);
+	    System.out.println("The file does not exist or you are trying to read a file that has been deleted");
+	}
+    }
+}
+
